@@ -26,8 +26,7 @@ public class PierwszaAplikacja extends JFrame {
 	};
 
 	public PierwszaAplikacja() {
-		
-		
+				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		//tytu³ okna
@@ -53,11 +52,9 @@ public class PierwszaAplikacja extends JFrame {
 		menu1.add(Zamknij);
 		setJMenuBar(mb);//pojawianie menu
 		
-		
 		Zamknij.addActionListener(al);
 		//koniec menu pocz¹tek pól
-		
-		
+			
 		//pola na dane s¹ zadeklarowane wczeœniej ale i tak wymagaj¹ stworzenia ich jako obiekty
 		x1 = new JTextField("x");
 		x2 = new JTextField();
@@ -76,8 +73,7 @@ public class PierwszaAplikacja extends JFrame {
 		y1.setBounds(100, 50, 50, 20);
 		y2.setBounds(250, 50, 50, 20);
 		y3.setBounds(400, 50, 50, 20);
-		
-		
+			
 		//fofanie pól
 		add(x1);
 		add(y1);
@@ -89,8 +85,7 @@ public class PierwszaAplikacja extends JFrame {
 		JLabel p1= new JLabel(" Punkt 1");
 		JLabel p2= new JLabel(" Punkt 2");
 		JLabel p3= new JLabel(" Punkt 3");
-		
-		
+			
 		p1.setBounds(40, 20, 120, 60);
 		p1.setVerticalAlignment(JLabel.TOP);
 		p1.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -104,6 +99,31 @@ public class PierwszaAplikacja extends JFrame {
 		add(p2);
 		add(p3);
 		
+	    JComponent canvas = new JComponent() {
+	        protected void paintComponent(Graphics g) {
+	            //ustala kolor markera
+	            g.setColor(Color.WHITE);
+	            //g.fillRect(0, 0, getWidth(), getHeight());
+	            
+	            g.setColor(Color.BLACK);
+	            
+	            g.drawLine(0, 150, 500, 150);//x
+	            g.drawLine(250, 0, 250, 300);//y
+	            
+	            g.setColor(Color.RED);
+	            g.drawOval(25, 5, 5, 5
+	            		);
+	        };
+	    };
+	    canvas.setBounds(0, 300, 500, 300);//dorysowuje canva
+		add(canvas);
+		}
+	
+		public int wspolrzedne(int liczba) {
+			if(liczba>=0) {
+				return 250+liczba;
+			}
+			return liczba; 
 		}
 		
 		public static void main(String args[]) {
@@ -114,4 +134,6 @@ public class PierwszaAplikacja extends JFrame {
 				}
 				});
 		}
+		
+		
 }
