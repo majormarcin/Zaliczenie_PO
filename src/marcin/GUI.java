@@ -1,35 +1,60 @@
 package marcin;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.EventListenerList;
-
+import javax.swing.event.*;
 public class GUI extends JFrame {
 
 	private JTextField x1,x2,x3,y1,y2,y3;
 	
 	private JLabel info= new JLabel(" Info ");
-
-	//deklaracja pozycji w menu przed listenerem który wymaga obiektu
+	public String txt="";
+	//deklaracja pozycji w menu przed listenerem ktory wymaga obiektu
 	private JMenuItem Zamknij;
+	private JMenuItem Zapisz;
 	
-	//listener dla eventu klikniêcia pozycji w menu
+	//listener dla eventu klikniecia pozycji w menu
 	private ActionListener al = new ActionListener(){
 	public void actionPerformed(ActionEvent e) {
 	if(e.getSource() == Zamknij)
-	dispose();//zamkniêcie programu
-	}
+	dispose();//zamkniecie programu
+	else if(e.getSource() == Zapisz)
+		zapis(txt);
+		}
+	
 	};
-	//klasa z neta ale œwietnie dzia³a jako Listener :D
+
+	//zapis z wyborem miejsca 
+	public void zapis(String text) {
+			    JFileChooser chooser = new JFileChooser();
+	    chooser.setCurrentDirectory(new File("D:/"));
+	    int retrival = chooser.showSaveDialog(null);
+	    if (retrival == JFileChooser.APPROVE_OPTION) {
+	        try {
+	            FileWriter fw = new FileWriter(chooser.getSelectedFile()+".txt");
+	            fw.write(text.toString());
+	            fw.close();
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+	    }
+	}
+	
+	// zapis bez wyboru do pliku 
+//	public static void zapis(String text) 
+//			throws IOException
+//			{
+//			  File file = new File ("punkty.txt");
+//			  BufferedWriter out = new BufferedWriter(new FileWriter(file)); 
+//			  out.write(text);
+//			 
+//			  System.out.println(text);
+//			  out.close();
+//			}
+	
+	//klasa z neta ale Å›wietnie dziaÅ‚a jako Listener :D
 	class MyDocumentListener implements DocumentListener {
 	    public void insertUpdate(DocumentEvent e) {
 	    	punkt();
@@ -41,21 +66,23 @@ public class GUI extends JFrame {
 	        //Plain text components do not fire these events
 	    	punkt();
 	    }
-	    public void punkt(){
-			String txt="Punkty ";
-			info.setText(txt+" P1 ("+x1.getText()+","+y1.getText()+") "+" P2 ("+x2.getText()+","+y2.getText()+") "+" P3 ("+x3.getText()+","+y3.getText()+") ");
-			
-		}
+	    
 	    
 	}
+	public void punkt(){
+			String txt="Punkty ";
+			info.setText(txt+" P1 ("+x1.getText()+","+y1.getText()+") "+" P2 ("+x2.getText()+","+y2.getText()+") "+" P3 ("+x3.getText()+","+y3.getText()+") ");
+			this.txt=" P1 ("+x1.getText()+","+y1.getText()+") "+" P2 ("+x2.getText()+","+y2.getText()+") "+" P3 ("+x3.getText()+","+y3.getText()+") ";
+		}
+	
 
 	public GUI() {
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
-		//zablokowane ¿eby layout nie wygl¹da³ brzydnko
+		//zablokowane zeby layout nie wyglÄ…dal brzydnko
 		setResizable(false);
-		//tytu³ okna
+		//tytul okna
 		setTitle("Marcin Zelkowski");
 		//jego rozmiar(szer,wys)
 		setSize(520, 700);
@@ -71,18 +98,21 @@ public class GUI extends JFrame {
 		mb.add(menu1);
 		
 		//deklaracja pozycji w menu
-		JMenuItem menuItem11 = new JMenuItem("Zapisz");//
-		Zamknij = new JMenuItem("Zamknij");//on wymaga listenera dla eventu wiêc by³ zadeklarowany wczeœniej
+		//on wymaga listenera dla eventu wiec byl zadeklarowany wczesniej
+		Zapisz = new JMenuItem("Zapisz");
+		Zamknij = new JMenuItem("Zamknij");
 		
-		menu1.add(menuItem11);//dodanie 
+		//dodanie 
+		
+		menu1.add(Zapisz);
 		menu1.add(Zamknij);
 		setJMenuBar(mb);//pojawianie menu
-		
+		Zapisz.addActionListener(al);
 		Zamknij.addActionListener(al);
 		
-		//koniec menu pocz¹tek pól
+		//koniec menu poczÄ…tek pÃ³l
 		 
-		//pola na dane s¹ zadeklarowane wczeœniej ale i tak wymagaj¹ stworzenia ich jako obiekty
+		//pola na dane sÄ… zadeklarowane wczeÅ›niej ale i tak wymagajÄ… stworzenia ich jako obiekty
 		x1 = new JTextField("x");
 		x2 = new JTextField();
 		x3 = new JTextField();
@@ -102,8 +132,8 @@ public class GUI extends JFrame {
 		y2.getDocument().addDocumentListener(new MyDocumentListener());
 		y3.getDocument().addDocumentListener(new MyDocumentListener());
 				
-		//uk³adanie  pól na formie
-		//(od lewej , od góry, szerokoœæ ,wysokoœæ)
+		//ukÅ‚adanie  pÃ³l na formie
+		//(od lewej , od gÃ³ry, szerokoÅ›Ä‡ ,wysokoÅ›Ä‡)
 		x1.setBounds(50, 50, 50, 20);
 		x2.setBounds(200, 50, 50, 20);
 		x3.setBounds(350, 50, 50, 20);
@@ -112,7 +142,7 @@ public class GUI extends JFrame {
 		y2.setBounds(250, 50, 50, 20);
 		y3.setBounds(400, 50, 50, 20);
 			
-		//dodanie pól
+		//dodanie pÃ³l
 		add(x1);
 		add(y1);
 		add(x2);
@@ -152,14 +182,14 @@ public class GUI extends JFrame {
 	            g.drawLine(0, 150, 500, 150);//x
 	            g.drawLine(250, 0, 250, 300);//y
 	            
-	            //strza³ki osi
+	            //strzaÅ‚ki osi
 	            //y
 	            g.drawLine(250, 0, 240, 10);
 	            g.drawLine(250, 0, 260, 10);
 	            //x
 	            g.drawLine(490, 150, 480, 160);
 	            g.drawLine(480, 140, 490, 150);
-	            //podzia³ka
+	            //podziaÅ‚ka
 	            for (int i=10;i<=300;i=i+10) {
 	            	g.drawLine(247, i, 253, i);//2
 	            	if ((i % 50) == 0) {
@@ -186,18 +216,6 @@ public class GUI extends JFrame {
 	    canvas.setBounds(10, 300, 490, 300);//dorysowuje canva
 		add(canvas);
 		
-//		wspó³rzedne
-		canvas.addMouseListener(new MouseListener() {
-	        public void mousePressed(MouseEvent me) { }
-	        public void mouseReleased(MouseEvent me) { }
-	        public void mouseEntered(MouseEvent me) { }
-	        public void mouseExited(MouseEvent me) { }
-	        public void mouseClicked(MouseEvent me) { 
-	          int x = me.getX();
-	          int y = me.getY();
-	          p3.setText("X:" + x + " Y:" + y); 
-	        }
-	    });
 		
 		}
 	
