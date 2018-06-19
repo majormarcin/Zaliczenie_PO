@@ -6,6 +6,7 @@
 	- x,y
 	- info
 	- uklad
-- Zapis
+- Zapis (2 różne opcje)
 - Zamykanie
+- 
 
