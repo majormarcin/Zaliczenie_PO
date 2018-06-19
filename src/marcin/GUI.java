@@ -10,6 +10,7 @@ public class GUI extends JFrame {
 	private JTextField x1,x2,x3,y1,y2,y3;
 	private JLabel info= new JLabel(" Info ");
 	public String txt="";
+	int delta;
 	//deklaracja pozycji w menu przed listenerem ktory wymaga obiektu
 	private JMenuItem Zamknij;
 	private JMenuItem Zapisz;
@@ -52,22 +53,25 @@ public class GUI extends JFrame {
 	
 	//klasa z neta ale świetnie działa jako Listener :D
 	class MyDocumentListener implements DocumentListener {
-	    public void insertUpdate(DocumentEvent e) {	    	
-	    	punkt();
+	    public void insertUpdate(DocumentEvent e) {
+	    		punkt(); 	    	
 	    }
-	    public void removeUpdate(DocumentEvent e) {
-	    	punkt();
+	    public void removeUpdate(DocumentEvent e) {	    	
+	    		punkt(); 
 	    }
 	    public void changedUpdate(DocumentEvent e) {
-	        //Plain text components do not fire these events
-	    	punkt();
+	    	//Plain text components do not fire these events	    	
+	    		punkt(); 
 	    }
 	}
-	int delta;
+	
 	public void punkt(){
+			delta = Integer.parseInt(x1.getText())*Integer.parseInt(y2.getText()) + Integer.parseInt(x2.getText())*Integer.parseInt(y3.getText()) + Integer.parseInt(x3.getText())*Integer.parseInt(y1.getText()) - Integer.parseInt(x3.getText())*Integer.parseInt(y2.getText()) - Integer.parseInt(x1.getText())*Integer.parseInt(y3.getText()) - Integer.parseInt(x2.getText())*Integer.parseInt(y1.getText());
+		
+		
+		System.out.println(delta);
 		//wywala bledy ale dizala
-		delta = Integer.parseInt(x1.getText())*Integer.parseInt(y2.getText()) + Integer.parseInt(x2.getText())*Integer.parseInt(y3.getText()) + Integer.parseInt(x3.getText())*Integer.parseInt(y1.getText()) - Integer.parseInt(x3.getText())*Integer.parseInt(y2.getText()) - Integer.parseInt(x1.getText())*Integer.parseInt(y3.getText()) - Integer.parseInt(x2.getText())*Integer.parseInt(y1.getText()); 
-        if(delta == 0){
+		 if(delta == 0){
         	info.setText("(" + x1.getText() + "," + y1.getText() + ")   (" + x2.getText() + "," + y2.getText() + ")   (" + x3.getText() + "," + y3.getText() + ")   Punkty są współliniowe");
         	this.txt="(" + x1.getText() + "," + y1.getText() + ")   (" + x2.getText() + "," + y2.getText() + ")   (" + x3.getText() + "," + y3.getText() + ")   Punkty sa wspolliniowe";
         }
@@ -198,17 +202,14 @@ public class GUI extends JFrame {
 	        };
 	    };
 	    int pkt;
-	    Component canvas2 = new Component() {
-	    	public void paintComponent2(Graphics g, int ws1,int ws2) {
-	            g.setColor(Color.RED);
-	            g.drawOval(ws1, ws2, 5, 5);
-	        };
-		};
+	    
 	    canvas.setBounds(10, 300, 490, 300);//dorysowuje canva
 		add(canvas);
-		canvas2.setBounds(10, 300, 490, 300);//dorysowuje canva
-		add(canvas2);
+		
+
 		}
+	//tu miala byc funkcja wyznaczajaca wspolrzedne w ukladzie ale bez rysowania punktow 
+	//w ukladzie to raczej nniema sensu
 		public int wspolrzedne(int liczba) {
 			if(liczba>=0) {
 				return 250+liczba;
