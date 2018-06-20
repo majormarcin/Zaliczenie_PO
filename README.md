@@ -8,5 +8,3 @@
 	- uklad
 - Zapis (2 różne opcje)
 - Zamykanie
-- 
-
