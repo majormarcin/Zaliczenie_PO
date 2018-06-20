@@ -51,7 +51,7 @@ public class GUI extends JFrame {
 //			  out.close();
 //			}
 	
-	//klasa z neta ale świetnie działa jako Listener :D
+	//klasa z neta ale świetnie działa jako Listener
 	class MyDocumentListener implements DocumentListener {
 	    public void insertUpdate(DocumentEvent e) {
 	    		punkt(); 	    	
@@ -59,18 +59,20 @@ public class GUI extends JFrame {
 	    public void removeUpdate(DocumentEvent e) {	    	
 	    		punkt(); 
 	    }
-	    public void changedUpdate(DocumentEvent e) {
-	    	//Plain text components do not fire these events	    	
+	    public void changedUpdate(DocumentEvent e) {    	
 	    		punkt(); 
 	    }
 	}
 	
 	public void punkt(){
+		//liczenie delty
+		try {
 			delta = Integer.parseInt(x1.getText())*Integer.parseInt(y2.getText()) + Integer.parseInt(x2.getText())*Integer.parseInt(y3.getText()) + Integer.parseInt(x3.getText())*Integer.parseInt(y1.getText()) - Integer.parseInt(x3.getText())*Integer.parseInt(y2.getText()) - Integer.parseInt(x1.getText())*Integer.parseInt(y3.getText()) - Integer.parseInt(x2.getText())*Integer.parseInt(y1.getText());
+		}catch (Exception e) {
+			info.setText("nie jest dobrze :D");
+		}
 		
 		
-		System.out.println(delta);
-		//wywala bledy ale dizala
 		 if(delta == 0){
         	info.setText("(" + x1.getText() + "," + y1.getText() + ")   (" + x2.getText() + "," + y2.getText() + ")   (" + x3.getText() + "," + y3.getText() + ")   Punkty są współliniowe");
         	this.txt="(" + x1.getText() + "," + y1.getText() + ")   (" + x2.getText() + "," + y2.getText() + ")   (" + x3.getText() + "," + y3.getText() + ")   Punkty sa wspolliniowe";
@@ -205,11 +207,9 @@ public class GUI extends JFrame {
 	    
 	    canvas.setBounds(10, 300, 490, 300);//dorysowuje canva
 		add(canvas);
-		
-
 		}
 	//tu miala byc funkcja wyznaczajaca wspolrzedne w ukladzie ale bez rysowania punktow 
-	//w ukladzie to raczej nniema sensu
+	//w ukladzie to raczej nie jest potrzebna
 		public int wspolrzedne(int liczba) {
 			if(liczba>=0) {
 				return 250+liczba;
