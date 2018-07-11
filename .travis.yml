@@ -1,2 +1,4 @@
 language: java
+sudo: true
 jdk: openjdk10
+script: mvn clean verify
