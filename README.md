@@ -8,3 +8,5 @@
 	- uklad
 - Zapis (2 różne opcje)
 - Zamykanie
+
+© 2019 Marcin Zelkowski by [Zelkowski.dev](https://zelkowski.dev)
